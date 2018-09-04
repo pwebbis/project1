@@ -1,0 +1,22 @@
+{%extends "layout.html"%}
+{%block heading %}
+Did you want more??!
+
+{% endblock %}
+
+{%block body%}
+<div class=main_div>
+  <form class="center_form" action="{{url_for('logged_in')}}" method="post">
+    <input type="text" name="username_reg" placeholder="enter a username">
+    <p class="p_error">{{user_taken}}</p>
+    <input type="password" name="password_reg" placeholder="choose you password">
+    <input type="text" name="first_name_reg" placeholder="enter your first name">
+    <input type="number" name="age_reg" placeholder="enter you age">
+    <input type="radio" name="gender_reg" value="Male">Male
+    <input type="radio" name="gender_reg" value="Female">Female
+    <button>Submit!</button>
+
+  </form>
+</div>
+<!-- <a href="{{ url_for('index')}}">See less...</a>-->
+{% endblock %}

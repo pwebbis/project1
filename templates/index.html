@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Welcome to Review this book!</title>
+
+  <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='index.css')}}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  </head>
+  <body>
+    <div class="central_div">
+      <form "class=center_form" action="{{url_for('logged_in')}}" method="post">
+
+        <p class=in_title>  Username:</p>
+        <input class="center_input" type="text" placeholder="Username" name="username">
+        <p class=in_title>Password:</p>
+        <input class="center_input" type="password" placeholder="password" name="password">
+        <p style="color: red; visibility:{{log_status}}; text-align: center;"> Worng login credentials!!</p>
+        <button class="center_btn">OK</button>
+        <p class=in_title> To browse this website you need to Log in!</p>
+        <p class=in_title>OR:</p>
+        <a class="center_a" href="{{url_for('create_acc')}}">Create a account!</a>
+      </form>
+
+
+    </div>
+  </body>
+</html>

@@ -1,0 +1,59 @@
+body{
+  background-image: url("images/books_background.jpg");
+  background-size: 100%;
+
+}
+.in_title{
+  position: relative;
+  margin-top: 2%;
+  margin-bottom: 0px;
+  padding: 1px;
+  font-size: 16px;
+  font-family: cursive;
+  text-align: center;
+}
+.central_div{
+  position: absolute;
+  right:35%;
+  top: 30%;
+  background-image: linear-gradient( #ff471a, #ccebff);
+  width: 30%;
+  height: 40%;
+  border: 1px solid;
+  border-radius: 10px;
+
+}
+.center_input{
+  position: relative;
+
+  margin-left: 5%;
+
+  width: 90%;
+  border: 3px solid blue;
+  border-radius: 10px;
+  padding: 2%;
+  text-align: center;
+
+}
+.center_btn{
+  position: relative;
+  width: 60%;
+  margin-top: 3%;
+  margin-left: 20%;
+
+  border-radius: 10%;
+  border: 2px solid #ffff99;
+  background-color: #ffffb3;
+
+}
+.center_a{
+  position: relative;
+
+  margin-left:37%;
+
+
+}
+.center_form{
+  vertical-align: middle;
+
+}
