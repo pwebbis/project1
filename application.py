@@ -55,17 +55,24 @@ def logged_in():
     else:
         log_status = "visible"
         return render_template("index.html",log_status=log_status)
-
-
+@app.route("/log_out")
+def log_out():
+    return render_template("index.html",log_status="hidden")
 #create account page!!
 @app.route("/create_acc",methods=['POST','GET'])
 def create_acc():
+    #default variables
     create_acc_status = "hidden"
+    user_used="hidden"
+
+    #get input variables
     create_user = request.form.get("username_reg")
     create_password = request.form.get("password_reg")
     create_name = request.form.get("first_name_reg")
     create_age = request.form.get("age_reg")
     create_gender= request.form.get("gender_reg")
+
+    #process data/requests
     if request.method== 'POST':
         usr_list = db.execute("SELECT username FROM users").fetchall()
         users = [r[0] for r in usr_list]
@@ -79,18 +86,19 @@ def create_acc():
 
             db.execute("INSERT INTO users (username,password,first_name,age,gender) VALUES(:username, :password, :first_name, :age, :gender)",{"username":create_user, "password":create_password, "first_name":create_name,"age":create_age,"gender":create_gender})
             i = db.commit()
-            print(i)
 
             log_status = "hidden"
-            return render_template("index.html",log_status=log_status)
+            return render_template("index.html",log_status=log_status, user_used="hidden" )
         else:
             create_acc_status = "visible"
-            return render_template("create_acc.html",create_acc_status=create_acc_status)
+            return render_template("create_acc.html",create_acc_status=create_acc_status, user_used="hidden")
     else:
-        return render_template("create_acc.html", create_acc_status="hidden")
+        return render_template("create_acc.html", create_acc_status="hidden", user_used="hidden")
+
+@app.route("/test_style")
+def test_style():
+    return render_template("test_style.html")
 
 
 
-
-
-#######################TODO: -usernames repetidos
+#######################TODO: -layouts!!! and sessions!!

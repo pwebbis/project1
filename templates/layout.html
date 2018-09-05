@@ -1,13 +1,85 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>My webpage! </title>
+
+		<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+		<style >
+			.row>div{
+				padding: 10px;
+				border-radius: 5px;
+				border: 2px solid black;
+				background-color: blue;
+
+				text-align: center;
+			}
+			#search_bar{
+				width: 90%;
+			}
+
+		</style>
 	</head>
 	<body>
-		<h1>{%block heading%}{%endblock%}</h1>
-
 		{%block body%}
-		asdsad
+		<div class="container-fluid">
+
+			<div class="row" id="head">
+				<div class="col-6" id="user_stats">
+					username
+					nº of reviews == karma
+					level
+				</div>
+				<div class="col-6" id="btn_log_out">
+					<form class="class=center_form" >
+						<a type="button" name="button" href="{{url_for('index')}}">LOG OUT</a>
+					</form>
+
+				</div>
+			</div>
+
+			<!--SHEARCH BAR ------------------------------------->
+			<div class="row">
+				<div class="col-12">
+					<form class="" action="" method="post">
+					  <div class="form-group">
+					    <label class="exampleInputPassword1">shearch books here:</label>
+					    <input type="text" name="query" id="search_bar">
+					    <button type="button" name="button">OK</button>
+					  </div>
+
+					</form>
+					{%block search_bar%}
+					{%endblock%}
+
+				</div>
+			</div>
+			<!--SHEARCH BAR ..........OVER---------------->
+
+
+			<!--MAIN BLOCK............START---------------->
+			<div class="row" id="main_block">
+
+					{%block main_block%}
+					{%endblock%}
+
+			</div>
+
+			<!--MAIN BLOCK............OVER---------------->
+
+			<!--FOOT............START---------------->
+			<div class="row" id="foot">
+				<div class="col-12">
+					{%block foot%}
+					{%endblock%}
+
+				</div>
+
+			</div>
+			<!--MAIN BLOCK............OVER---------------->
+
+		</div><!--container............END---------------->
 		{%endblock%}
+
 	</body>
 </html>
