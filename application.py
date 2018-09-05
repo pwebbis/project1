@@ -36,12 +36,13 @@ def index():
     log_status = "hidden"
     return render_template("index.html",log_status=log_status)
 
+#try to login and if so go on!!
 @app.route("/logged_in", methods=['POST'])
 def logged_in():
     username_g = request.form.get("username")
     password_g = request.form.get("password")
     p_info=db.execute("SELECT (password) FROM users WHERE (username='%s')"%(username_g)).fetchall()
-
+    log_status = "hidden"
     if not p_info:
         log_status = "visible"
         return render_template("index.html",log_status=log_status)
@@ -56,7 +57,40 @@ def logged_in():
         return render_template("index.html",log_status=log_status)
 
 
-
-@app.route("/create_acc")
+#create account page!!
+@app.route("/create_acc",methods=['POST','GET'])
 def create_acc():
-    return render_template("create_acc.html")
+    create_acc_status = "hidden"
+    create_user = request.form.get("username_reg")
+    create_password = request.form.get("password_reg")
+    create_name = request.form.get("first_name_reg")
+    create_age = request.form.get("age_reg")
+    create_gender= request.form.get("gender_reg")
+    if request.method== 'POST':
+        usr_list = db.execute("SELECT username FROM users").fetchall()
+        users = [r[0] for r in usr_list]
+        for user in users:
+            print (user)
+            if (user) == create_user:
+                print("true")
+                return render_template("create_acc.html", user_used="visible", create_acc_status="hidden")
+
+        if (create_user and create_password and create_name and create_age and create_gender):
+
+            db.execute("INSERT INTO users (username,password,first_name,age,gender) VALUES(:username, :password, :first_name, :age, :gender)",{"username":create_user, "password":create_password, "first_name":create_name,"age":create_age,"gender":create_gender})
+            i = db.commit()
+            print(i)
+
+            log_status = "hidden"
+            return render_template("index.html",log_status=log_status)
+        else:
+            create_acc_status = "visible"
+            return render_template("create_acc.html",create_acc_status=create_acc_status)
+    else:
+        return render_template("create_acc.html", create_acc_status="hidden")
+
+
+
+
+
+#######################TODO: -usernames repetidos
