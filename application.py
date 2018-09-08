@@ -28,36 +28,53 @@ Session(app)
 engine = create_engine(os.getenv("DATABASE_URL"))
 db = scoped_session(sessionmaker(bind=engine))
 
+#secret key
+app.secret_key ='atum' ##TODO:mudar isto para mais seguro
+
 ##some property
 #log_status = hidden
 #ROUTES------------------------------------------------------------
 @app.route("/")
 def index():
+    if 'username' in session:
+        return render_template("logged_in.html")
     log_status = "hidden"
     return render_template("index.html",log_status=log_status)
 
 #try to login and if so go on!!
 @app.route("/logged_in", methods=['POST'])
 def logged_in():
-    username_g = request.form.get("username")
-    password_g = request.form.get("password")
-    p_info=db.execute("SELECT (password) FROM users WHERE (username='%s')"%(username_g)).fetchall()
-    log_status = "hidden"
-    if not p_info:
-        log_status = "visible"
-        return render_template("index.html",log_status=log_status)
-    else:
-        p = p_info[0][0]
+    if request.method=='POST': #TODO: talvez nao seja preciso o if como os cookies fazem o post automatico
+        username_g = request.form.get("username")
+        password_g = request.form.get("password")
+        p_info=db.execute("SELECT (password) FROM users WHERE (username='%s')"%(username_g)).fetchall()
+        log_status = "hidden"
+        if not p_info:
+            log_status = "visible"
+            return render_template("index.html",log_status=log_status)
+        else:
+            p = p_info[0][0]
 
 
-    if password_g == p:
-        return render_template("logged_in.html")
-    else:
-        log_status = "visible"
-        return render_template("index.html",log_status=log_status)
+        if password_g == p:
+            session['username']= username_g
+            u_info = db.execute(f"SELECT (n_reviews, level) FROM users WHERE username='{username_g}'").fetchall()
+            for u in u_info:
+                print(u[0])
+            return render_template("logged_in.html")
+        else:
+            log_status = "visible"
+            return render_template("index.html",log_status=log_status)
+
+
+
 @app.route("/log_out")
 def log_out():
+    session.pop('username',None)
     return render_template("index.html",log_status="hidden")
+
+
+
 #create account page!!
 @app.route("/create_acc",methods=['POST','GET'])
 def create_acc():
@@ -101,4 +118,4 @@ def test_style():
 
 
 
-#######################TODO: -layouts!!! and sessions!!
+#######################TODO: -layouts!!!

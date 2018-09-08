@@ -17,7 +17,10 @@
 			#search_bar{
 				width: 90%;
 			}
+			#main_block{
 
+				min-height: 500px;
+			}
 		</style>
 	</head>
 	<body>
@@ -27,12 +30,12 @@
 			<div class="row" id="head">
 				<div class="col-6" id="user_stats">
 					username
-					nº of reviews == karma
+					nº of reviews
 					level
 				</div>
 				<div class="col-6" id="btn_log_out">
 					<form class="class=center_form" >
-						<a type="button" name="button" href="{{url_for('index')}}">LOG OUT</a>
+						<a  name="log_out" href="{{url_for('log_out')}}">LOG OUT</a>
 					</form>
 
 				</div>
